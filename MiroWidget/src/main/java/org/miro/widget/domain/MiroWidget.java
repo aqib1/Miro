@@ -1,15 +1,13 @@
 package org.miro.widget.domain;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Builder
-@Getter
+
+@Data
 public class MiroWidget {
-    private UUID uuid;
+    private String uuid;
     private Double width;
     private Double height;
     private Coordinate coordinate;

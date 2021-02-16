@@ -23,7 +23,7 @@ public class WidgetController {
 
     @PostMapping("/widgets")
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create new miro widget", response = MiroWidget.class)
+    @ApiOperation(value = "Create new miro widget", response = WidgetCreateResponse.class)
     public ResponseEntity<WidgetCreateResponse> create(@Valid @RequestBody WidgetRequest request) {
         return new ResponseEntity<>(widgetBusiness.create(request), HttpStatus.CREATED);
     }
