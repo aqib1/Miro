@@ -1,9 +1,11 @@
 package org.miro.widget.domain;
 
 
+import org.miro.widget.dto.base.Base;
+
 import java.util.*;
 
-public class MiroQueue {
+public class MiroQueue extends Base {
     private final Map<String, Integer> zIndexesRef = new HashMap<>();
     private Queue<MiroWidget> minHeap;
 
@@ -18,7 +20,7 @@ public class MiroQueue {
         return offer;
     }
 
-    public List<MiroWidget> getAsList() {
+    public List<MiroWidget> getAll() {
         return new ArrayList<>(minHeap);
     }
 

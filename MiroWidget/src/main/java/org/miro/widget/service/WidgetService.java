@@ -12,4 +12,5 @@ public interface WidgetService {
     WidgetResponse getById(String uuid);
     WidgetResponse update(String uuid, MiroWidget widget);
     WidgetDeleteResponse delete(String uuid);
+    AllWidgetResponse getAll(int pageNumber, int pageSize);
 }

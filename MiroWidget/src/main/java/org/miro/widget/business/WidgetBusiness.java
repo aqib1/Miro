@@ -1,5 +1,6 @@
 package org.miro.widget.business;
 
+import org.miro.widget.domain.Pageable;
 import org.miro.widget.dto.request.WidgetRequest;
 import org.miro.widget.dto.response.AllWidgetResponse;
 import org.miro.widget.dto.response.WidgetCreateResponse;
@@ -10,6 +11,8 @@ import org.miro.widget.mapper.MiroWidgetMapper;
 import org.miro.widget.service.impl.WidgetServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 import static java.util.Optional.ofNullable;
 
@@ -23,7 +26,6 @@ public class WidgetBusiness {
     private WidgetServiceImpl service;
 
     public WidgetCreateResponse create(WidgetRequest request) {
-
         return ofNullable(request).map(rq -> ofNullable(rq.getCoordinateRequest())
                 .map(c -> {
                     validateWidgetRequest(rq);
@@ -37,6 +39,11 @@ public class WidgetBusiness {
 
     public AllWidgetResponse getAll() {
         return service.getAll();
+    }
+
+
+    public AllWidgetResponse getAll(int pageNumber, int pageSize) {
+        return service.getAll(pageNumber, pageSize);
     }
 
     public WidgetResponse getById(String uuid) {
@@ -71,7 +78,7 @@ public class WidgetBusiness {
     }
 
     private void validateUUID(String uuid) {
-        if (uuid.isBlank())
+        if (Objects.isNull(uuid) || uuid.isBlank())
             throw new RequestException("[Request] validation failure! uuid is blank");
     }
 

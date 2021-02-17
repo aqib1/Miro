@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import java.util.UUID;
-
 import static org.miro.widget.helper.Const.*;
 
 @RestController
@@ -46,7 +44,7 @@ public class WidgetController {
         return ResponseEntity.ok(widgetBusiness.getById(uuid));
     }
 
-    @PutMapping(UPDATE_WIDGET_URL)
+    @PutMapping(UPDATE_BY_UUID_WIDGET_URL)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update Widget", response = WidgetResponse.class)
     public ResponseEntity<WidgetResponse> update(@PathVariable("id") String uuid, @Valid @RequestBody WidgetRequest request) {
@@ -65,5 +63,14 @@ public class WidgetController {
     @ApiOperation(value = "Delete Widget", response = WidgetDeleteResponse.class)
     public ResponseEntity<WidgetDeleteResponse> deleteAll() {
         return ResponseEntity.ok(widgetBusiness.deleteAll());
+    }
+
+
+    @GetMapping(GET_ALL_BY_PAGING_URL)
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "List Widgets With Paging", response = AllWidgetResponse.class)
+    public ResponseEntity<AllWidgetResponse> getAll(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                                    @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(widgetBusiness.getAll(page, pageSize));
     }
 }

@@ -1,20 +1,20 @@
 package org.miro.widget.service.impl;
 
 import org.miro.widget.domain.MiroWidget;
+import org.miro.widget.domain.Pageable;
 import org.miro.widget.dto.response.AllWidgetResponse;
 import org.miro.widget.dto.response.WidgetCreateResponse;
 import org.miro.widget.dto.response.WidgetDeleteResponse;
 import org.miro.widget.dto.response.WidgetResponse;
 import org.miro.widget.exceptions.ReadDataException;
 import org.miro.widget.exceptions.WidgetNotFoundException;
-import org.miro.widget.exceptions.WidgetOfferException;
+import org.miro.widget.exceptions.WidgetCreateException;
 import org.miro.widget.mapper.WidgetResponseMapper;
 import org.miro.widget.repository.InMemoryWidgetRepository;
 import org.miro.widget.service.WidgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.EmptyStackException;
 
 import static java.util.Optional.of;
@@ -42,7 +42,7 @@ public class WidgetServiceImpl implements WidgetService {
                         .uuid(uuid)
                         .message("Widget created successfully!! uuid = " + uuid)
                         .build())
-                .orElseThrow(() -> new WidgetOfferException("Widget failed to create!"));
+                .orElseThrow(() -> new WidgetCreateException("Widget failed to create!"));
     }
 
     @Override
@@ -53,6 +53,21 @@ public class WidgetServiceImpl implements WidgetService {
                         .widgets(mapper.widgetResponseListFromMiroWidgetList(list))
                         .build())
                 .orElseThrow(() -> new ReadDataException("Failed while reading data!"));
+    }
+
+    @Override
+    public AllWidgetResponse getAll(int pageNumber, int pageSize) {
+        return of(repository.getAll())
+                .map(list -> {
+                            Pageable pageable = new Pageable(mapper.widgetResponseListFromMiroWidgetList(list));
+                            pageable.setPage(pageNumber);
+                            pageable.setPageSize(pageSize);
+                            return AllWidgetResponse
+                                    .builder()
+                                    .widgets(pageable.getContent())
+                                    .build();
+                        }
+                ).orElseThrow(() -> new ReadDataException("Failed while reading data!"));
     }
 
     @Override

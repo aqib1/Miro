@@ -1,11 +1,14 @@
 package org.miro.widget.dto.response;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import org.miro.widget.dto.base.Base;
 
-@Data
 @Builder
-public class WidgetCreateResponse {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class WidgetCreateResponse extends Base {
     private String uuid;
     private String message;
 }

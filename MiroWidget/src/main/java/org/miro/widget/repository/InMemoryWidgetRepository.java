@@ -28,7 +28,7 @@ public class InMemoryWidgetRepository {
     public List<MiroWidget> getAll() {
         readLock.lock();
         try {
-            return miroQueue.getAsList();
+            return miroQueue.getAll();
         } finally {
             readLock.unlock();
         }

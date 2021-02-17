@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface WidgetResponseMapper {
 
-    @Mapping(target="response", source="coordinate")
+    @Mapping(target="coordinateResponse", source="coordinate")
     WidgetResponse widgetResponseFromMiroWidget(MiroWidget widget);
     List<WidgetResponse> widgetResponseListFromMiroWidgetList(List<MiroWidget> miroWidgetList);
 }
