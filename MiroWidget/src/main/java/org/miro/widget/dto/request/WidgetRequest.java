@@ -1,13 +1,11 @@
 package org.miro.widget.dto.request;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@Builder
-@Getter
+@Data
 public class WidgetRequest {
 
     @NotNull(message = "Width must not be null")

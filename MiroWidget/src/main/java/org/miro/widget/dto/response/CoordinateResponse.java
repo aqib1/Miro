@@ -1,9 +1,9 @@
-package org.miro.widget.domain;
+package org.miro.widget.dto.response;
 
 import lombok.Data;
 
 @Data
-public class Coordinate {
+public class CoordinateResponse {
     private Integer x;
     private Integer y;
     private Integer z;
